@@ -229,6 +229,7 @@
         default:
           this_document.innerHTML = Error404();
       }
+      goToTop();
     }
 
     async function Home() {
@@ -258,7 +259,7 @@
   ${SetHeader(random_anime.data)}
   <div class="flex flex-col text-center pt-10 gap-4">
   <h1 class="mb-4 text-4xl mx-auto w-full font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Top Animes</h1>
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto xl:container sm:px-6 lg:px-8 px-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto xl:container sm:px-6 lg:px-8 px-4 ">
   ${second_anime_card}
   </div>
   ${Galery(anime_card3.data[0], anime_card3.data[3], anime_card3.data[5])}
@@ -356,7 +357,7 @@
 
     function SetHeader(element) {
       return `<section id=${element.mal_id} class="dark:bg-teal-700 bg-gray-200 transition-colors	transitio">
-  <div class="mx-auto xl:container px-4 py-8 sm:px-6 sm:py-6 md:px-6 2xl:px-40 lg:py-8">
+  <div class="mx-auto xl:container px-4 py-8 sm:px-6 sm:py-6 md:px-6 2xl:px-40 lg:py-8 ">
     <div class="grid grid-cols-1 md:grid-cols-3 grid-rows-4 md:grid-rows-1 gap-8 lg:grid-cols-4 lg:gap-16">
       <div class="relative h-full overflow-hidden rounded-lg md:h-80 lg:order-last lg:h-full row-start-1 row-end-4 md:row-span-1">
         <img
@@ -712,18 +713,26 @@
 
     function Navbar(lenguage) {
       return `
-  <div class="w-full bg-teal-900">
-  <div class="mx-auto xl:container px-4 sm:px-6 lg:px-8 ">
-    <div class="flex h-16 items-center justify-between">
-      <div class="flex-1 md:flex md:items-center md:gap-12">
+      <div class="bg-teal-900">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+
+      <!-- Logo -->
+      <div class="flex items-center justify-between w-full">
+
+        <!-- Navbar Toggler (Hamburguesa) -->
+        
+
         <button onclick='Router("home")' class="block dark:text-teal-300 flex flex-row items-center justify-center p-2">
           <img src="https://i.ibb.co/fG5y70B/icon-logo.png" class="h-12" alt="">
           <h1 class="text-white text-xl ml-2">Rice on Riles</h1>
         </button>
+        <button class="md:hidden text-white p-2" onclick="toggleNavbar()">
+          ☰ <!-- Puedes cambiar este icono por el que prefieras -->
+        </button>
       </div>
 
-      <div class="md:flex md:items-center md:gap-12">
-      <nav aria-label="Global" class="hidden md:block">
+      <!-- Navbar Links -->
+      <nav aria-label="Global" class="hidden md:flex md:items-center md:gap-12">
         <ul class="flex items-center gap-6 text-sm">
           <li>
             <button class="transition text-white hover:text-white/75" onclick='Router("home")'>
@@ -737,43 +746,59 @@
           </li>
         </ul>
       </nav>
+
+      <!-- Otros elementos del Navbar -->
+      <div class="hidden md:flex items-center gap-4">
         <div class="flex items-center gap-4">
-          <div class="sm:flex sm:gap-4">
           ${NavbarButtons()}
-            <div class="hidden sm:flex justify-center items-center dark:bg-teal-900">
-              <button onclick='DarkMode()'
-                    class="h-12 w-12 rounded-lg p-2 hover:bg-teal-700">
-                    <svg class="fill-gray-400 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                    </svg>
-                    <svg class="fill-gray-400 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                            fill-rule="evenodd" clip-rule="evenodd"></path>
-                    </svg>
-                </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Navbar Hamburguesa -->
+  <div class="md:hidden bg-teal-900 text-white" id="navbarMobile" style="display: none;">
+    <ul class="py-2">
+      <li>
+        <button class="w-full py-3 px-4 block text-left hover:bg-teal-800" onclick='Router("home")'>
+          ${text[lenguage].home}
+        </button>
+      </li>
+      <li>
+        <button class="w-full py-3 px-4 block text-left hover:bg-teal-800" onclick='Router("search")'>
+          ${text[lenguage].search}
+        </button>
+      </li>
+      <li>
+        <button class="w-full py-3 px-4 block text-left hover:bg-teal-800" onclick='Router("search")'>
+          ${text[lenguage].settings}
+        </button>
+      </li>
+      <li class="flex flex-row gap-2 mx-auto w-full justify-center mt-2">
+        ${NavbarButtons()}
+      </li>
+    </ul>
   </div>`
+    }
+
+    function toggleNavbar() {
+      const navbarMobile = document.getElementById('navbarMobile');
+      navbarMobile.style.display = navbarMobile.style.display === 'none' ? 'block' : 'none';
     }
 
     function NavbarButtons() {
       if (localStorage.getItem("login_state") === "true") {
         return `
     <div class="relative">
-      <button id="avatarButton" class="w-10 h-10 rounded-full cursor-pointer object-cover overflow-hidden" onclick='toggleMenu()'>
-      <img type="button" src="https://i.ibb.co/YQtnrNp/perfil.jpg" alt="User dropdown">
+      <button id="avatarButton" class="w-10 h-10 rounded-full cursor-pointer object-cover overflow-hidden hidden" onclick='toggleMenu()'>
+        <img type="button" src="https://i.ibb.co/YQtnrNp/perfil.jpg" alt="User dropdown">
       </button>
-      <div class="hidden z-10 bg-white divide-y divide-teal-100 rounded-lg shadow w-44 dark:bg-teal-700 dark:divide-teal-600 absolute top-14 -left-16 shadow-lg" id="avatar_menu">
+      <div class="flex justify-between z-10 bg-white divide-y divide-teal-100 rounded-lg shadow w-44 dark:bg-teal-700 dark:divide-teal-600 absolute top-14 -left-16 shadow-lg hidden" id="avatar_menu">
           <div class="px-4 py-3 text-sm text-teal-900 dark:text-white text-center">
             <div>${localStorage.getItem('name')}</div>
             <div class="font-medium truncate">${localStorage.getItem('email')}</div>
           </div>
-          <ul class="py-2 text-sm text-teal-700 dark:text-teal-200">
+          <ul class="py-2 text-sm text-teal-700 dark:text-teal-200 ">
             <li>
               <button onclick='Router("settings")' class="block px-4 py-2 hover:bg-teal-100 dark:hover:bg-teal-600 dark:hover:text-white w-full">Dashboard</button>
             </li>
@@ -788,13 +813,22 @@
     </div>
     `
       }
-      return `<div class="hidden sm:flex">
+      return `<div class="justify-between sm:flex">
     <button onclick='Router("login")' class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"> ${text[lenguage].login} </button>
   </div>
-  <div class="hidden sm:flex">
+  <div class="sm:flex">
     <button onclick='Router("register")' class="rounded-md bg-teal-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-teal-800 dark:text-white dark:hover:text-white/75" > ${text[lenguage].register} </button>
   </div>`
     }
+
+    window.addEventListener('resize', function () {
+      const navbarMobile = document.getElementById('navbarMobile');
+      const windowWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+
+      if (windowWidth >= 768) {
+        navbarMobile.style.display = 'none';
+      }
+    });
 
     function DarkMode() {
       if (localStorage.getItem("dark_mode") === "true") {
@@ -900,19 +934,20 @@
     function Footer() {
       return `
   <div class="bg-teal-900">
-    <div class="px-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-      <div class="flex flex-col justify-between pt-5 pb-4 sm:flex-row">
-        <div class="flex flex-row items-center gap-3">
+    <div class="px-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 items-center flex">
+      <div class="flex flex-row justify-between pt-5 pb-4 sm:flex-row">
+        <div class="flex flex-row items-center gap-3 items-center">
           <img src="https://i.ibb.co/fG5y70B/icon-logo.png" class="h-8 w-8" alt="">
-          <p class="text-sm text-gray-500">
+          <p class="text-sm text-gray-500 truncate">
             ${text[lenguage].copy}
           </p>
         </div>
-        <div class="flex items-center mt-4 space-x-4 sm:mt-0">
+        <div class="flex flex-row items-center mt-4 space-x-4 sm:mt-0">
           <button onclick='ChangeLenguage()' class="text-gray-500 transition-colors duration-300 hover:text-teal-accent-400 h-6 w-6 object-fit">
             ${lenguage == "es" ? usa_icon : peru_icon}
           </button>
         </div>
+
       </div>
     </div>
   </div>`
@@ -935,6 +970,13 @@
       lenguage = lenguage == "es" ? "en" : "es"
       localStorage.setItem("lenguage", lenguage)
       location.reload()
+    }
+
+    function goToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     }
   </script>
 </body>
