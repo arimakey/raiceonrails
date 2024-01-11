@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              100: '#b2b2b2',
+              200: '#7f7f7f',
+              300: '#4c4c4c',
+              400: '#333333',
+              500: '#1e1e1e',
+              600: '#1a1a1a',
+              700: '#181818',
+              800: '#141414',
+              900: '#111111',
+            },
+          },
+        },
+      },
+      darkMode: 'class',
+    }
+  </script>
+  <title>Rice Riles</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+      overflow-y: scroll;
+    }
+  </style>
+</head>
+
+<body class="">
+  <header id="main_navbar"></header>
+  <main id="root" class="dark:bg-teal-800 transition-colors	transition">ABRIR ESTO CON LIVE SERVER O MONTANDO UN
+    SERVIDOR DE DESARROLLO, GRACIAS</main>
+  <script>
+    const text = {
+      "es": {
+        "home": "Inicio",
+        "blog": "Blog",
+        "login": "Iniciar sesion",
+        "singup": "Registrate",
+        "register": "Registrate",
+        "search": "Buscar",
+        "search_placeholder": "Buscar anime",
+        "search_button": "Buscar",
+        "search_no_results": "No se encontraron resultados",
+        "search_results": "Resultados de la busqueda",
+        "search_results_for": "Resultados para",
+        "register_title": "Registrate Hoy!",
+        "register_subtitle": "Comienza hoy mismo a disfrutar de un mundo lleno de vida y aventuras",
+        "no_account": "¿No tienes una cuenta?",
+        "login_title": "Inicia sesion!",
+        "login_subtitle": "Comienza hoy mismo a disfrutar de un mundo lleno de vida y aventuras",
+        "name": "Ingresar Nombre",
+        "user": "Ingresar Usuario",
+        "email": "Ingresar Correo",
+        "password": "Ingresar Contraseña",
+        "score": "Puntuacion",
+        "genres": "Generos",
+        "studios": "Estudios",
+        "aired": "Estreno",
+        "month": ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        "galery_title": "Peliculas para maratonear",
+        "galery_subtitle": "Estas son algunas de las peliculas que puedes ver en AniKa",
+        "logout": "Cerrar sesion",
+        "search": "Buscar",
+        "settings": "Configuracion",
+        "dark_mode": "Modo oscuro",
+        "lenguage": "Cambiar Lenguaje",
+        "lenguage_spanish": "Español",
+        "lenguage_english": "Ingles",
+        "lenguage_title": "Si no lo entiendes, puedes...",
+        "lenguage_subtitle": "Los datos de la api estan contenidos en ingles, al ser una api publica no podemos traducirlos, pero la interfaz estara completamente en el idioma que selecciones",
+        "copy": "© Derechos reservados 2020 Rice on Riles Inc.",
+      },
+      "en": {
+        "home": "Home",
+        "blog": "Blog",
+        "login": "Login",
+        "singup": "Sing up",
+        "register": "Register",
+        "search": "Search",
+        "search_placeholder": "Search anime",
+        "search_button": "Search",
+        "search_no_results": "No results found",
+        "search_results": "Search results",
+        "search_results_for": "Results for",
+        "register_title": "Register Today!",
+        "register_subtitle": "Start today to enjoy a world full of life and adventures",
+        "no_account": "Don't have an account?",
+        "login_title": "Login!",
+        "login_subtitle": "Start today to enjoy a world full of life and adventures",
+        "name": "Enter Name",
+        "user": "Enter User",
+        "email": "Enter Email",
+        "password": "Enter Password",
+        "score": "Score",
+        "genres": "Genres",
+        "studios": "Studios",
+        "aired": "Aired",
+        "month": ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        "galery_title": "Movies to marathon",
+        "galery_subtitle": "These are some of the movies you can watch on AniKa",
+        "logout": "Logout",
+        "search": "Search",
+        "settings": "Settings",
+        "dark_mode": "Dark mode",
+        "lenguage": "Change Lenguage",
+        "lenguage_spanish": "Spanish",
+        "lenguage_english": "English",
+        "lenguage_title": "If you don't understand, you can...",
+        "lenguage_subtitle": "The api data is contained in English, being a public api we cannot translate it, but the interface will be completely in the language you select",
+        "copy": "© Copyright 2020 Rice on Riles Inc. All rights reserved.",
+      }
+    }
+
+    const arroba_icon = `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  class="h-4 w-4 text-gray-400"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  >
+  <path
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+  />
+</svg>`
+
+    const peru_icon = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><path style="fill:#FF4B55;" d="M170.667,423.721H8.828c-4.875,0-8.828-3.953-8.828-8.828V97.1c0-4.875,3.953-8.828,8.828-8.828  h161.839V423.721z"/><rect x="170.67" y="88.277" style="fill:#F5F5F5;" width="170.67" height="335.45"/><path style="fill:#FF4B55;" d="M503.172,423.721H341.333V88.273h161.839c4.875,0,8.828,3.953,8.828,8.828v317.793  C512,419.77,508.047,423.721,503.172,423.721z"/><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>`
+    const usa_icon = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve"><g>	<rect y="118.15" style="fill:#F5F5F5;" width="512" height="39.38"/>	<path style="fill:#F5F5F5;" d="M485.264,39.385H26.736C17.028,50.773,9.557,64.126,5.013,78.77h501.974   C502.443,64.126,494.972,50.773,485.264,39.385z"/>	<rect y="196.92" style="fill:#F5F5F5;" width="512" height="39.38"/>	<rect y="275.69" style="fill:#F5F5F5;" width="512" height="39.38"/>	<rect y="354.46" style="fill:#F5F5F5;" width="512" height="39.38"/>	<path style="fill:#F5F5F5;" d="M506.987,433.231H5.013c4.543,14.644,12.015,27.996,21.723,39.384h458.527   C494.972,461.227,502.443,447.875,506.987,433.231z"/></g><g>}
+<path style="fill:#FF4B55;" d="M400,0H112C77.852,0,47.279,15.287,26.736,39.385h458.527C464.721,15.287,434.148,0,400,0z"/>	<rect y="157.54" style="fill:#FF4B55;" width="512" height="39.38"/>	<path style="fill:#FF4B55;" d="M512,112c0-11.571-1.755-22.731-5.013-33.23H5.013C1.755,89.269,0,100.429,0,112v6.154h512V112z"/>	<rect y="236.31" style="fill:#FF4B55;" width="512" height="39.38"/>	<path style="fill:#FF4B55;" d="M512,400v-6.154H0V400c0,11.571,1.755,22.731,5.013,33.231h501.974   C510.245,422.731,512,411.571,512,400z"/>	<path style="fill:#FF4B55;" d="M485.264,472.615H26.736C47.279,496.713,77.852,512,112,512h288   C434.148,512,464.721,496.713,485.264,472.615z"/>	<rect y="315.08" style="fill:#FF4B55;" width="512" height="39.38"/></g><path style="fill:#41479B;" d="M275.692,0H112C50.144,0,0,50.144,0,112v163.692h275.692V0z"/><g>
+<path style="fill:#F5F5F5;" d="M29.745,43.063c-0.262,0.829,0.681,1.515,1.389,1.009l5.463-3.904l5.463,3.904   c0.707,0.506,1.651-0.18,1.389-1.009l-2.025-6.402l5.402-3.989c0.699-0.517,0.339-1.626-0.531-1.633l-6.714-0.052l-1.146-3.436   c-2.878,2.509-5.623,5.165-8.23,7.952l1.567,1.158L29.745,43.063z"/>	<path style="fill:#F5F5F5;" d="M37.455,77.755l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C36.013,76.93,37.18,76.93,37.455,77.755z"/>	<path style="fill:#F5F5F5;" d="M37.455,136.688l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C36.013,135.863,37.18,135.863,37.455,136.688z"/>	<path style="fill:#F5F5F5;" d="M37.455,190.834l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C36.013,190.009,37.18,190.009,37.455,190.834z"/>
+<path style="fill:#F5F5F5;" d="M37.455,240.106l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C36.013,239.281,37.18,239.281,37.455,240.106z"/>	<path style="fill:#F5F5F5;" d="M63.318,49.781l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.632l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.515-1.389,1.009L62.46,65.33l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.632l6.714-0.052l2.124-6.37C61.876,48.956,63.043,48.956,63.318,49.781z"/>	<path style="fill:#F5F5F5;" d="M63.318,108.714l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.515-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C61.876,107.889,63.043,107.889,63.318,108.714z"/>	<path style="fill:#F5F5F5;" d="M63.318,164.705l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C61.876,163.881,63.043,163.881,63.318,164.705z"/>
+<path style="fill:#F5F5F5;" d="M63.318,214.987l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.515-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C61.876,214.162,63.043,214.162,63.318,214.987z"/>	<path style="fill:#F5F5F5;" d="M89.181,24.618l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.632l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.632l6.714-0.052l2.124-6.37C87.739,23.794,88.906,23.794,89.181,24.618z"/>	<path style="fill:#F5F5F5;" d="M89.181,77.755l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C87.739,76.93,88.906,76.93,89.181,77.755z"/>	<path style="fill:#F5F5F5;" d="M89.181,136.688l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C87.739,135.863,88.906,135.863,89.181,136.688z"/>	<path style="fill:#F5F5F5;" d="M89.181,190.834l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C87.739,190.009,88.906,190.009,89.181,190.834z"/>
+<path style="fill:#F5F5F5;" d="M89.181,240.106l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C87.739,239.281,88.906,239.281,89.181,240.106z"/>	<path style="fill:#F5F5F5;" d="M115.044,49.781l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.632l-5.401,3.989   l2.025,6.402c0.262,0.829-0.681,1.515-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.531-1.632l6.714-0.052l2.124-6.37C113.603,48.956,114.769,48.956,115.044,49.781z"/>	<path style="fill:#F5F5F5;" d="M115.044,108.714l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.401,3.989   l2.025,6.402c0.262,0.829-0.681,1.515-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C113.603,107.889,114.769,107.889,115.044,108.714z"/>	<path style="fill:#F5F5F5;" d="M115.044,164.705l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.401,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C113.603,163.881,114.769,163.881,115.044,164.705z"/>	<path style="fill:#F5F5F5;" d="M115.044,214.987l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.401,3.989   l2.025,6.402c0.262,0.829-0.681,1.515-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C113.603,214.162,114.769,214.162,115.044,214.987z"/>
+<path style="fill:#F5F5F5;" d="M140.907,24.618l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.632l-5.401,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.531-1.632l6.714-0.052l2.124-6.37C139.466,23.794,140.632,23.794,140.907,24.618z"/>	<path style="fill:#F5F5F5;" d="M140.907,77.755l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.401,3.989L146.9,96.2   c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402l-5.401-3.989   c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C139.466,76.93,140.632,76.93,140.907,77.755z"/><path style="fill:#F5F5F5;" d="M140.907,136.688l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.401,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C139.466,135.863,140.632,135.863,140.907,136.688z"/>	<path style="fill:#F5F5F5;" d="M140.907,190.834l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.401,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C139.466,190.009,140.632,190.009,140.907,190.834z"/>	<path style="fill:#F5F5F5;" d="M140.907,240.106l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.401,3.989   l2.025,6.402c0.262,0.829-0.681,1.514-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C139.466,239.281,140.632,239.281,140.907,240.106z"/>
+<path style="fill:#F5F5F5;" d="M166.77,49.781l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.632l-5.402,3.989l2.025,6.402   c0.262,0.829-0.682,1.515-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402l-5.401-3.989   c-0.699-0.516-0.339-1.626,0.53-1.632l6.714-0.052l2.124-6.37C165.329,48.956,166.495,48.956,166.77,49.781z"/>	<path style="fill:#F5F5F5;" d="M166.77,108.714l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.515-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C165.329,107.889,166.495,107.889,166.77,108.714z"/>	<path style="fill:#F5F5F5;" d="M166.77,164.705l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C165.329,163.881,166.495,163.881,166.77,164.705z"/>	<path style="fill:#F5F5F5;" d="M166.77,214.987l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.515-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.401-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C165.329,214.162,166.495,214.162,166.77,214.987z"/>	<path style="fill:#F5F5F5;" d="M192.633,24.618l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.632l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.531-1.632l6.714-0.052l2.124-6.37C191.192,23.794,192.358,23.794,192.633,24.618z"/>
+<path style="fill:#F5F5F5;" d="M192.633,77.755l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C191.192,76.93,192.358,76.93,192.633,77.755z"/>	<path style="fill:#F5F5F5;" d="M192.633,136.688l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C191.192,135.863,192.358,135.863,192.633,136.688z"/>	<path style="fill:#F5F5F5;" d="M192.633,190.834l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C191.192,190.009,192.358,190.009,192.633,190.834z"/>	<path style="fill:#F5F5F5;" d="M192.633,240.106l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.531-1.633l6.714-0.052l2.124-6.37C191.192,239.281,192.358,239.281,192.633,240.106z"/>	<path style="fill:#F5F5F5;" d="M218.496,49.781l2.124,6.37l6.715,0.052c0.869,0.007,1.23,1.116,0.53,1.632l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.515-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.632l6.715-0.052l2.124-6.37C217.055,48.956,218.221,48.956,218.496,49.781z"/>
+<path style="fill:#F5F5F5;" d="M218.496,108.714l2.124,6.37l6.715,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.515-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.715-0.052l2.124-6.37C217.055,107.889,218.221,107.889,218.496,108.714z"/>	<path style="fill:#F5F5F5;" d="M218.496,164.705l2.124,6.37l6.715,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.715-0.052l2.124-6.37C217.055,163.881,218.221,163.881,218.496,164.705z"/>	<path style="fill:#F5F5F5;" d="M218.496,214.987l2.124,6.37l6.715,0.052c0.869,0.007,1.23,1.116,0.53,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.515-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.715-0.052l2.124-6.37C217.055,214.162,218.221,214.162,218.496,214.987z"/>	<path style="fill:#F5F5F5;" d="M244.359,24.618l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.632l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.632l6.714-0.052l2.124-6.37C242.918,23.794,244.084,23.794,244.359,24.618z"/>	<path style="fill:#F5F5F5;" d="M244.359,77.755l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.506-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C242.918,76.93,244.084,76.93,244.359,77.755z"/>
+<path style="fill:#F5F5F5;" d="M244.359,136.688l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C242.918,135.863,244.084,135.863,244.359,136.688z"/>	<path style="fill:#F5F5F5;" d="M244.359,190.834l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.905l-5.463,3.905c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C242.918,190.009,244.084,190.009,244.359,190.834z"/>	<path style="fill:#F5F5F5;" d="M244.359,240.106l2.124,6.37l6.714,0.052c0.869,0.007,1.23,1.116,0.531,1.633l-5.402,3.989   l2.025,6.402c0.262,0.829-0.682,1.514-1.389,1.009l-5.463-3.904l-5.463,3.904c-0.707,0.505-1.651-0.18-1.389-1.009l2.025-6.402   l-5.402-3.989c-0.699-0.516-0.339-1.626,0.53-1.633l6.714-0.052l2.124-6.37C242.918,239.281,244.084,239.281,244.359,240.106z"/></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g><g></g></svg>`
+
+    const eye_icon = `<svg
+  xmlns="http://www.w3.org/2000/svg"
+  class="h-4 w-4 text-gray-400"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke="currentColor"
+  >
+  <path
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+  />
+  <path
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+  />
+</svg>
+`
+
+
+
+    const this_document = document.getElementById("root")
+    const navbar_document = document.getElementById("main_navbar")
+    let lenguage = localStorage.getItem("lenguage") || "es"
+
+    async function Router(rute, data) {
+      switch (rute) {
+        case "home":
+          navbar_document.innerHTML = Navbar(lenguage)
+          this_document.innerHTML = LoadingPage()
+          this_document.innerHTML = await Home()
+          localStorage.setItem("rute", "home")
+          break;
+        case "anime":
+          navbar_document.innerHTML = Navbar(lenguage)
+          this_document.innerHTML = await AnimePage(data)
+          localStorage.setItem("rute", "anime")
+          localStorage.setItem("data", data)
+          break;
+        case "register":
+          if (localStorage.getItem("login_state") == "true") {
+            Router("home")
+            break;
+          }
+          navbar_document.innerHTML = ""
+          this_document.innerHTML = RegisterPage()
+          localStorage.setItem("rute", "register")
+          break;
+        case "login":
+          if (localStorage.getItem("login_state") == "true") {
+            Router("home")
+            break;
+          }
+          navbar_document.innerHTML = ""
+          this_document.innerHTML = LoginPage(lenguage)
+          localStorage.setItem("rute", "login")
+          break;
+        case "settings":
+          if (localStorage.getItem("login_state") == "false") {
+            Router("home")
+            break;
+          }
+          navbar_document.innerHTML = Navbar(lenguage)
+          this_document.innerHTML = inProgress()
+          localStorage.setItem("rute", "user")
+          break;
+        case "search":
+          navbar_document.innerHTML = Navbar(lenguage)
+          this_document.innerHTML = inProgress()
+          localStorage.setItem("rute", "search")
+          localStorage.setItem("data", data)
+          break;
+        default:
+          this_document.innerHTML = Error404();
+      }
+    }
+
+    async function Home() {
+      //First Data Card
+      const data_card = await requestApi("https://api.jikan.moe/v4/seasons/now")
+      const anime_card = await data_card.data.map((element) => {
+        return anime_card1(element)
+      }).join("")
+
+
+      //Second Data Card
+      const second_data_card = await requestApi("https://api.jikan.moe/v4/top/anime?limit=4")
+      const second_anime_card = await second_data_card.data.map((element) => {
+        return anime_card2(element)
+      }).join("")
+
+      let random_anime
+
+      do {
+        random_anime = await requestApi("https://api.jikan.moe/v4/random/anime?rating=pg13?min_score=9")
+      } while (!random_anime.data.synopsis || (random_anime.data.synopsis && random_anime.data.synopsis.length < 80))
+
+      const anime_card3 = await requestApi("https://api.jikan.moe/v4/anime?limit=10&type=movie&min_score=8&rating=pg13")
+
+
+      const body = `
+  ${SetHeader(random_anime.data)}
+  <div class="flex flex-col text-center pt-10 gap-4">
+  <h1 class="mb-4 text-4xl mx-auto w-full font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Top Animes</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto xl:container sm:px-6 lg:px-8 px-4">
+  ${second_anime_card}
+  </div>
+  ${Galery(anime_card3.data[0], anime_card3.data[3], anime_card3.data[5])}
+  </div>
+  <div class="flex flex-col text-center pt-10 gap-4">
+    <h1 class="mb-4 text-4xl mx-auto w-full font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">Animes de Temporada</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mx-auto xl:container mt-4 sm:px-6 lg:px-8 px-4">
+      ${anime_card}
+    </div>
+  </div>
+  ${Footer()}
+  `
+      return body
+    }
+
+    async function requestApi(url) {
+      try {
+        const request = await fetch(url)
+        if (!request.ok) {
+          throw new Error("Fetch error")
+        }
+        const data = await request.json()
+        console.log(data)
+        return data
+      } catch (error) {
+        return "error"
+      }
+    }
+
+    function anime_card1(element) {
+      return `<div class="relative flex flex-col text-gray-700 bg-white dark:bg-teal-700 shadow-xl bg-clip-border rounded-xl w-full justify-between mb-16" id=${element.mal_id}>
+    <div class="flex flex-col dark:text-gray-100"> 
+      <div class="relative overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl">
+        <img
+          src=${element.images.jpg.large_image_url}
+          alt="card-image" class="object-cover w-full h-96 object-cover" />
+      </div>
+      <div class="p-6 mt-2 text-start">
+        <div class="flex items-start justify-between mb-2">
+          <p class="block font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+            ${element.title}
+          </p>
+          <p class="block flex flex-row justify-center items-center gap-2 font-sans text-base antialiased font-medium leading-relaxed text-blue-gray-900">
+            <svg class="w-4 h-4 text-yellow-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+              <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+            </svg>
+            ${element.score}
+          </p>
+        </div>
+        <p class="block h-[4em] font-sans text-sm antialiased font-normal leading-normal text-gray-700 opacity-75 dark:text-gray-200 line-clamp-3">
+          ${element.synopsis}
+        </p>
+      </div>
+    </div>
+    <div class="p-6 pt-0 dark:text-gray-100">
+      <button
+        class="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg shadow-gray-900/10 hover:shadow-gray-900/20 focus:opacity-[0.85] active:opacity-[0.85] active:shadow-none block w-full bg-blue-gray-900/10 dark:bg-teal-900 text-blue-gray-900 shadow-none hover:scale-105 hover:shadow-none focus:scale-105 focus:shadow-none active:scale-100"
+        type="button"
+        onclick='Router("anime", this.id)'
+        id=${element.mal_id}
+        >
+        Ver mas
+      </button>
+    </div>
+  </div>`
+    }
+
+
+    function anime_card2(element) {
+      return `<button onclick='Router("anime", this.id)' class="group relative block dark:bg-black bg-black h-[35rem] rounded-sm overflow-hidden" id=${element.mal_id}>
+  <img
+    alt="Developer"
+    src=${element.images.jpg.large_image_url}
+    class="absolute inset-0 h-full w-full object-cover opacity-75 transition-opacity group-hover:opacity-50"
+  />
+
+  <div class="relative p-4 sm:p-6 lg:p-8  h-full flex justify-between	flex-col">
+    <div>
+      <p class="text-sm font-medium uppercase tracking-widest text-pink-500">${element.genres[0].name}</p>
+      <p class="text-xl font-bold text-white sm:text-2xl">${element.title}</p>
+    </div>
+
+    <div class="text-end">
+      <div
+        class="translate-y-8 transform opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100"
+      >
+        <p class="text-sm text-white line-clamp-6">
+          ${element.synopsis}
+        </p>
+      </div>
+    </div>
+  </div>
+</button>`
+    }
+
+    function SetHeader(element) {
+      return `<section id=${element.mal_id} class="dark:bg-teal-700 bg-gray-200 transition-colors	transitio">
+  <div class="mx-auto xl:container px-4 py-8 sm:px-6 sm:py-6 md:px-6 2xl:px-40 lg:py-8">
+    <div class="grid grid-cols-1 md:grid-cols-3 grid-rows-4 md:grid-rows-1 gap-8 lg:grid-cols-4 lg:gap-16">
+      <div class="relative h-full overflow-hidden rounded-lg md:h-80 lg:order-last lg:h-full row-start-1 row-end-4 md:row-span-1">
+        <img
+          alt="Party"
+          src=${element.images.jpg.large_image_url}
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+      </div>
+
+      <div class="lg:py-24 md:col-span-2 lg:col-span-3 text-center md:text-left">
+        <h2 class="text-3xl font-bold sm:text-4xl dark:text-gray-100 ">${element.title}</h2>
+
+        <p class="mt-4 text-gray-600 dark:text-gray-300 line-clamp-3">
+          ${element.synopsis}
+        </p>
+
+        <a
+          href="#"
+          class="mt-8 inline-block rounded bg-indigo-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-yellow-400"
+          onclick='Router("anime", this.id)'
+          id=${element.mal_id}
+        >
+          Ver más
+        </a>
+      </div>
+    </div>
+  </div>
+</section>`
+    }
+
+    function Galery(one, two, three) {
+      return `<section>
+  <div class="mx-auto xl:container px-4 py-8 sm:px-6 sm:py-12 lg:px-40">
+    <header class="text-center">
+    <h1 class="mb-4 text-4xl mx-auto w-full font-extrabold leading-none tracking-tight text-gray-900 md:text-3xl lg:text-4xl dark:text-white">${text[lenguage].galery_title}</h1>
+
+      <p class="mx-auto mt-4 max-w-md text-gray-500">
+        ${text[lenguage].galery_subtitle}
+      </p>
+    </header>
+
+    <ul class="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <li id=${one.mal_id}>
+        <a href="#" class="group relative block">
+          <img
+            src=${one.images.jpg.large_image_url}
+            alt=""
+            class="aspect-square w-full object-cover transition duration-500 group-hover:opacity-90"
+          />
+
+          <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
+            <h3 class="text-xl font-medium text-white drop-shadow-2xl">${one.title}</h3>
+          </div>
+        </a>
+      </li>
+
+      <li id=${two.mal_id}>
+        <a href="#" class="group relative block">
+          <img
+            src=${two.images.jpg.large_image_url}
+            alt=""
+            class="aspect-square w-full object-cover transition duration-500 group-hover:opacity-90"
+          />
+
+          <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
+            <h3 class="text-xl font-medium text-white drop-shadow-2xl">${two.title}</h3>
+          </div>
+        </a>
+      </li>
+
+      <li class="lg:col-span-2 lg:col-start-2 lg:row-span-2 lg:row-start-1" id=${three.mal_id}>
+        <a href="#" class="group relative block">
+          <img
+            src=${three.images.jpg.large_image_url}
+            alt=""
+            class="aspect-square w-full object-cover transition duration-500 group-hover:opacity-90"
+          />
+
+          <div class="absolute inset-0 flex flex-col items-start justify-end p-6">
+            <h3 class="text-xl font-medium text-white drop-shadow-2xl">${three.title}</h3>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>`
+    }
+
+    function Error404() {
+      return ``
+    }
+
+    function RegisterPage() {
+      return `<section class="relative flex flex-wrap lg:h-screen lg:items-center lg:overflow-hidden">
+    ${Navbar(lenguage)}
+    <div class="relative w-full h-96 lg:h-full lg:w-1/2 lg:mb-10">
+      <img
+        alt="Welcome"
+        src='https://i.ibb.co/9G12CVZ/landscape-one.jpg'
+        class="absolute inset-0 h-full w-full object-cover"
+      />
+    </div>
+
+    <div class="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 md:mb-12 lg:py-24 lg:mb-32">
+      <div class="mx-auto max-w-lg text-center">
+        <img src='https://i.ibb.co/fG5y70B/icon-logo.png' class='h-16 w-16 mx-auto'/>
+        <h1 class="text-2xl font-bold sm:text-3xl dark:text-white">${text[lenguage].register_title}</h1>
+        <p class="mt-4 text-gray-500 dark:text-gray-300">
+          ${text[lenguage].register_subtitle}
+        </p>
+      </div>
+
+      <form action="" class="mx-auto mb-0 max-w-md space-y-4 mt-6">
+        <div class="shadow-md">
+          <label for="username" class="sr-only">${text[lenguage].user}</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            placeholder="${text[lenguage].user}"
+            required
+          />
+        </div>
+
+        <div class="shadow-md">
+          <label for="name" class="sr-only">${text[lenguage].name}</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            placeholder="${text[lenguage].name}"
+            required
+          />
+        </div>
+
+        <div class="shadow-md">
+          <label for="email" class="sr-only">${text[lenguage].email}</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            placeholder="${text[lenguage].email}"
+            required
+          />
+        </div>
+
+        <div class="shadow-md">
+          <label for="password" class="sr-only">${text[lenguage].password}</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            placeholder="${text[lenguage].password}"
+            required
+          />
+        </div>
+
+        <div class="flex items-center justify-between">
+          <p class="text-sm text-gray-500">
+            No account?
+            <button class="underline" href="" onclick='Router("register")'>${text[lenguage].login}</button>
+          </p>
+
+          <button
+            type="submit"
+            class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+            onclick='userRegister()'
+          >
+            ${text[lenguage].register}
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>`;
+    }
+
+
+    function LoginPage() {
+      return `<section class="relative flex flex-wrap lg:h-screen lg:items-center lg:overflow-hidden">
+  ${Navbar(lenguage)}
+  <div class="w-full px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-24 lg:mb-20">
+    <div class="mx-auto max-w-lg text-center">
+    <img src='https://i.ibb.co/fG5y70B/icon-logo.png' class='h-16 w-16 mx-auto'/>
+      <h1 class="text-2xl font-bold sm:text-3xl dark:text-white">${text[lenguage].login_title}</h1>
+      <p class="mt-4 text-gray-500 dark:text-gray-300">
+        ${text[lenguage].login_subtitle}
+      </p>
+    </div>
+
+    <form action="" class="mx-auto mb-0 mt-8 max-w-md space-y-4">
+      <div class="shadow-md">
+        <label for="email" class="sr-only">${text[lenguage].email}</label>
+
+        <div class="relative">
+          <input
+            type="email"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            id="email"
+            placeholder="${text[lenguage].email}"
+          />
+
+          <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+            
+          </span>
+        </div>
+      </div>
+
+      <div class="shadow-md">
+        <label for="password" class="sr-only">${text[lenguage].password}</label>
+
+        <div class="relative">
+          <input
+            type="password"
+            class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+            id="password"
+            placeholder="${text[lenguage].password}"
+          />
+
+          <span class="absolute inset-y-0 end-0 grid place-content-center px-4">
+            
+          </span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <p class="text-sm text-gray-500">
+          ${text[lenguage].no_account}
+          <button class="underline" href="" onclick='Router("register")'>${text[lenguage].singup}</button>
+        </p>
+
+        <button
+          class="inline-block rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white"
+          onclick='userLogin()'
+        >
+          ${text[lenguage].login}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="relative  w-full h-96 lg:h-full lg:w-1/2">
+    <img
+      alt="Welcome"
+      src='https://i.ibb.co/bX7btDY/landscape-two.jpg'
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+  </div>
+</section>`
+    }
+
+    window.addEventListener("load", () => {
+      !!localStorage.getItem("rute") ? Router(localStorage.getItem("rute"), localStorage.getItem("data"), localStorage.getItem("lenguage")) : Router("home")
+      CheckDarkMode()
+    }
+    )
+
+    async function AnimePage(id) {
+      const element = await requestApi(`https://api.jikan.moe/v4/anime/${id}`)
+      return `
+  <section class="text-gray-900 dark:text-gray-400 body-font overflow-hidden">
+    <div class="container px-5 py-10 mx-auto">
+      <div class="lg:w-4/5 mx-auto flex flex-wrap">
+        <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+          <h2 class="text-sm title-font text-gray-600 dark:text-gray-500 tracking-widest">${element.data.title_japanese}</h2>
+          <h1 class="dark:text-white text-3xl title-font font-medium mb-4">${element.data.title}</h1>
+          <div class="flex mb-4">
+            <a class="flex-grow text-indigo-400 border-b-2 border-indigo-500 py-2 text-lg px-1">Description</a>
+          </div>
+          <p class="leading-relaxed mb-4">${element.data.synopsis}</p>
+          <div class="flex border-t border-gray-800 py-2">
+            <span class="text-gray-700 dark:text-gray-500">${text[lenguage].score}</span>
+            <span class="ml-auto text-gray-500 dark:text-white">${element.data.score}</span>
+          </div>
+          <div class="flex border-t border-gray-800 py-2">
+            <span class="text-gray-700 dark:text-gray-500">${text[lenguage].genres}</span>
+            <span class="ml-auto text-gray-500 dark:text-white">${element.data.genres.map((element) => {
+        return `${element.name} `
+      })}</span>
+          </div>
+          <div class="flex border-t border-b mb-6 border-gray-800 py-2">
+            <span class="text-gray-700 dark:text-gray-500">${text[lenguage].studios}</span>
+            <span class="ml-auto text-gray-500 dark:text-white">${element.data.studios.map((element) => {
+        return `${element.name} `
+      })}</span>
+          </div>
+          <div class="flex">
+            <span class="title-font font-medium text-2xl text-gray-500 dark:text-white">${getStringDate(element.data.aired.from)}</span>
+            <button class="flex ml-auto text-white bg-indigo-500 border-0 py-4 px-4 focus:outline-none hover:bg-indigo-600 rounded-full" id=${element.data.mal_id} onclick='AddAnime("anime_list", this.id)'>
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="flex w-full h-full items-center justify-center lg:w-1/2 lg:h-[48rem]">
+          <img alt="anime" class="w-full lg:h-full mx-auto object-cover object-center rounded" src=${element.data.images.jpg.large_image_url}>
+        </div>
+      </div>
+    </div>
+  </section>
+  ${Footer()}
+  `
+    }
+
+    function userLogin() {
+      const email = document.getElementById('email').value
+      const password = document.getElementById('password').value
+
+      if (localStorage.getItem("email") == email && localStorage.getItem("password") == password) {
+        Router("home")
+        localStorage.setItem("login_state", "true")
+        setTimeout(() => { location.reload(); }, 1000);
+      } else {
+        console.log(email, password)
+      }
+    }
+
+    function userRegister() {
+      const user = document.getElementById("username").value
+      const name = document.getElementById("name").value
+      const password = document.getElementById("password").value
+      const email = document.getElementById("email").value
+
+      localStorage.setItem("user", user)
+      localStorage.setItem("name", name)
+      localStorage.setItem("password", password)
+      localStorage.setItem("email", email)
+    }
+
+    function logOut() {
+      localStorage.setItem("login_state", "false")
+      Router("home")
+    }
+
+    function LoadingPage() {
+      return `<div class="flex items-center justify-center h-screen">
+    <div role="status">
+      <svg aria-hidden="true" class="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
+          <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/>
+      </svg>
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>`
+    }
+
+
+
+
+    function Navbar(lenguage) {
+      return `
+  <div class="w-full bg-teal-900">
+  <div class="mx-auto xl:container px-4 sm:px-6 lg:px-8 ">
+    <div class="flex h-16 items-center justify-between">
+      <div class="flex-1 md:flex md:items-center md:gap-12">
+        <button onclick='Router("home")' class="block dark:text-teal-300 flex flex-row items-center justify-center p-2">
+          <img src="https://i.ibb.co/fG5y70B/icon-logo.png" class="h-12" alt="">
+          <h1 class="text-white text-xl ml-2">Rice on Riles</h1>
+        </button>
+      </div>
+
+      <div class="md:flex md:items-center md:gap-12">
+      <nav aria-label="Global" class="hidden md:block">
+        <ul class="flex items-center gap-6 text-sm">
+          <li>
+            <button class="transition text-white hover:text-white/75" onclick='Router("home")'>
+              ${text[lenguage].home}
+            </button>
+          </li>
+          <li>
+            <button class="transition text-white hover:text-white/75" onclick='Router("search")'>
+              ${text[lenguage].search}
+            </button>
+          </li>
+        </ul>
+      </nav>
+        <div class="flex items-center gap-4">
+          <div class="sm:flex sm:gap-4">
+          ${NavbarButtons()}
+            <div class="hidden sm:flex justify-center items-center dark:bg-teal-900">
+              <button onclick='DarkMode()'
+                    class="h-12 w-12 rounded-lg p-2 hover:bg-teal-700">
+                    <svg class="fill-gray-400 block dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                    <svg class="fill-gray-400 hidden dark:block" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                            fill-rule="evenodd" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>`
+    }
+
+    function NavbarButtons() {
+      if (localStorage.getItem("login_state") === "true") {
+        return `
+    <div class="relative">
+      <button id="avatarButton" class="w-10 h-10 rounded-full cursor-pointer object-cover overflow-hidden" onclick='toggleMenu()'>
+      <img type="button" src="https://i.ibb.co/YQtnrNp/perfil.jpg" alt="User dropdown">
+      </button>
+      <div class="hidden z-10 bg-white divide-y divide-teal-100 rounded-lg shadow w-44 dark:bg-teal-700 dark:divide-teal-600 absolute top-14 -left-16 shadow-lg" id="avatar_menu">
+          <div class="px-4 py-3 text-sm text-teal-900 dark:text-white text-center">
+            <div>${localStorage.getItem('name')}</div>
+            <div class="font-medium truncate">${localStorage.getItem('email')}</div>
+          </div>
+          <ul class="py-2 text-sm text-teal-700 dark:text-teal-200">
+            <li>
+              <button onclick='Router("settings")' class="block px-4 py-2 hover:bg-teal-100 dark:hover:bg-teal-600 dark:hover:text-white w-full">Dashboard</button>
+            </li>
+            <li>
+              <button onclick='Router("settings")' class="block px-4 py-2 hover:bg-teal-100 dark:hover:bg-teal-600 dark:hover:text-white w-full">${text[lenguage].settings}</button>
+            </li>
+            <li>
+              <button onclick='logOut()' class="block px-4 py-2 hover:bg-teal-100 dark:hover:bg-teal-600 dark:hover:text-white w-full">${text[lenguage].logout}</button>
+            </li>
+          </ul>
+      </div>
+    </div>
+    `
+      }
+      return `<div class="hidden sm:flex">
+    <button onclick='Router("login")' class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow dark:hover:bg-teal-500"> ${text[lenguage].login} </button>
+  </div>
+  <div class="hidden sm:flex">
+    <button onclick='Router("register")' class="rounded-md bg-teal-100 px-5 py-2.5 text-sm font-medium text-teal-600 dark:bg-teal-800 dark:text-white dark:hover:text-white/75" > ${text[lenguage].register} </button>
+  </div>`
+    }
+
+    function DarkMode() {
+      if (localStorage.getItem("dark_mode") === "true") {
+        document.body.classList.remove('dark')
+        localStorage.setItem("dark_mode", "false")
+      } else {
+        document.body.classList.add('dark')
+        localStorage.setItem("dark_mode", "true")
+      }
+    }
+
+    function CheckDarkMode() {
+      if (localStorage.getItem("dark_mode") === "true") {
+        document.body.classList.add('dark')
+      }
+    }
+
+    function getStringDate(date) {
+      const dateIn = new Date(date);
+
+      const year = dateIn.getFullYear();
+      const month = dateIn.getMonth() + 1;
+
+      !!month ? monthString = text[lenguage].month[month - 1] : monthString = "No found"
+
+      return `${monthString} - ${year}`;
+    }
+
+    function SaveArray(key, array) {
+      const arrayJSON = JSON.stringify(array);
+      localStorage.setItem(key, arrayJSON);
+    }
+
+    function ReadArray(key) {
+      const arrayJSON = localStorage.getItem(key) || "[]";
+      const array = JSON.parse(arrayJSON);
+      return array;
+    }
+
+    function AddValue(key, value) {
+      let array = ReadArray(key);
+      if (array.includes(value)) {
+        return;
+      }
+      array = [...array, value];
+      SaveArray(key, array);
+    }
+
+    function AddAnime(key, value) {
+      localStorage.getItem("login_state") == "true" ? AddValue(key, value) : Router("login")
+    }
+
+    function FavoriteAnimes() {
+      const array = ReadArray("anime_list");
+      return `
+  <section class="text-gray-400 body-font bg-gray-900">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-wrap w-full mb-20">
+        <div class="lg:w-1/2 w-full mb-6 lg:mb-0">
+          <h1 class="sm:text-3xl text-2xl font-medium title-font mb-2 text-white">Pitchfork Kickstarter Taxidermy</h1>
+          <div class="h-1 w-20 bg-indigo-500 rounded"></div>
+        </div>
+        <p class="lg:w-1/2 w-full leading-relaxed text-gray-400 text-opacity-90">Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical gentrify, subway tile poke farm-to-table. Franzen you probably haven't heard of them man bun deep jianbing selfies heirloom prism food truck ugh squid celiac humblebrag.</p>
+      </div>
+      <div class="flex flex-wrap -m-4">
+        <div class="xl:w-1/4 md:w-1/2 p-4">
+          <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
+            <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://dummyimage.com/720x400" alt="content">
+            <h3 class="tracking-widest text-indigo-400 text-xs font-medium title-font">SUBTITLE</h3>
+            <h2 class="text-lg text-white font-medium title-font mb-4">Chichen Itza</h2>
+            <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+          </div>
+        </div>
+        <div class="xl:w-1/4 md:w-1/2 p-4">
+          <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
+            <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://dummyimage.com/721x401" alt="content">
+            <h3 class="tracking-widest text-indigo-400 text-xs font-medium title-font">SUBTITLE</h3>
+            <h2 class="text-lg text-white font-medium title-font mb-4">Colosseum Roma</h2>
+            <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+          </div>
+        </div>
+        <div class="xl:w-1/4 md:w-1/2 p-4">
+          <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
+            <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://dummyimage.com/722x402" alt="content">
+            <h3 class="tracking-widest text-indigo-400 text-xs font-medium title-font">SUBTITLE</h3>
+            <h2 class="text-lg text-white font-medium title-font mb-4">Great Pyramid of Giza</h2>
+            <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+          </div>
+        </div>
+        <div class="xl:w-1/4 md:w-1/2 p-4">
+          <div class="bg-gray-800 bg-opacity-40 p-6 rounded-lg">
+            <img class="h-40 rounded w-full object-cover object-center mb-6" src="https://dummyimage.com/723x403" alt="content">
+            <h3 class="tracking-widest text-indigo-400 text-xs font-medium title-font">SUBTITLE</h3>
+            <h2 class="text-lg text-white font-medium title-font mb-4">San Francisco</h2>
+            <p class="leading-relaxed text-base">Fingerstache flexitarian street art 8-bit waistcoat. Distillery hexagon disrupt edison bulbche.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>`
+    }
+
+    function Footer() {
+      return `
+  <div class="bg-teal-900">
+    <div class="px-4 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+      <div class="flex flex-col justify-between pt-5 pb-4 sm:flex-row">
+        <div class="flex flex-row items-center gap-3">
+          <img src="https://i.ibb.co/fG5y70B/icon-logo.png" class="h-8 w-8" alt="">
+          <p class="text-sm text-gray-500">
+            ${text[lenguage].copy}
+          </p>
+        </div>
+        <div class="flex items-center mt-4 space-x-4 sm:mt-0">
+          <button onclick='ChangeLenguage()' class="text-gray-500 transition-colors duration-300 hover:text-teal-accent-400 h-6 w-6 object-fit">
+            ${lenguage == "es" ? usa_icon : peru_icon}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>`
+    }
+
+
+    function toggleMenu() {
+      const menu = document.getElementById("avatar_menu")
+      menu.classList.contains("hidden") ? menu.classList.remove("hidden") : menu.classList.add("hidden")
+    }
+
+    function inProgress() {
+      return `<div class="flex items-center justify-center h-screen text-white"> Trabajando en ello, ve al inicio... <button class="transition ml-4 text-white hover:text-white/75 px-4 py-2 bg-teal-700" onclick='Router("home")'>
+  ${text[lenguage].home}
+</button> </div>`
+    }
+
+
+    function ChangeLenguage() {
+      lenguage = lenguage == "es" ? "en" : "es"
+      localStorage.setItem("lenguage", lenguage)
+      location.reload()
+    }
+  </script>
+</body>
+
+</html>
