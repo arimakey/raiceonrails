@@ -252,7 +252,7 @@
         random_anime = await requestApi("https://api.jikan.moe/v4/random/anime?rating=pg13?min_score=9")
       } while (!random_anime.data.synopsis || (random_anime.data.synopsis && random_anime.data.synopsis.length < 80))
 
-      const anime_card3 = await requestApi("https://api.jikan.moe/v4/anime?limit=10&type=movie&min_score=8&rating=pg13")
+      const anime_card3 = await requestApi("https://api.jikan.moe/v4/anime/52299/full")
 
 
       const body = `
